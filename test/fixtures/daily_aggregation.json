@@ -1,0 +1,18 @@
+{
+  "lat": 40.7128,
+  "lon": -74.006,
+  "timezone": "America/New_York",
+  "daily": {
+    "temp": {
+      "day": 20.5,
+      "min": 15.8,
+      "max": 25.2
+    },
+    "weather": [
+      {
+        "main": "Clear",
+        "description": "clear sky"
+      }
+    ]
+  }
+}

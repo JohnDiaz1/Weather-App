@@ -1,0 +1,15 @@
+{
+  "lat": 40.7128,
+  "lon": -74.006,
+  "current": {
+    "temp": 22.8,
+    "feels_like": 23.5,
+    "weather": [
+      {
+        "main": "Clouds",
+        "description": "scattered clouds"
+      }
+    ],
+    "wind_speed": 12.5
+  }
+}
