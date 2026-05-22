@@ -22,7 +22,7 @@ class AppTheme {
         showSelectedLabels: true,
         showUnselectedLabels: false,
       ),
-      cardTheme: const CardTheme(
+      cardTheme: const CardThemeData(
         color: Color(0xff202329),
       ),
       iconTheme: const IconThemeData(

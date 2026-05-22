@@ -43,7 +43,7 @@ dependencies:
   realm: ^20.0.0
   flutter_map: ^7.0.2
   connectivity_plus: ^6.1.1
-  osm_nominatim: ^3.0.1
+  osm_nominatim: ^4.0.1
   intl: ^0.20.1
   flutter_launcher_icons: ^0.14.2
 

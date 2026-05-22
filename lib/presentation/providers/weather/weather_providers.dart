@@ -42,8 +42,11 @@ final currentForecastProvider = FutureProvider<CurrentForecast>((ref) async {
 //Provider de busqueda de nombre
 final nameLocationProvider = FutureProvider<Place>((ref) async {
   final userPosition = await ref.watch(userLocationProvider.future);
+  final nominatim = Nominatim(
+    userAgent: 'Dart osm_nominatim example',
+  );
 
-  return await Nominatim.reverseSearch(
+  return await nominatim.reverseSearch(
     lat: userPosition.latitude,
     lon: userPosition.longitude,
     addressDetails: true,

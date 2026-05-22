@@ -49,7 +49,7 @@ class _SearchPlaceTextFieldState extends ConsumerState<SearchPlaceTextField> {
   @override
   Widget build(BuildContext context) {
     final placeRepository = ref
-        .read(placeRepositoryProvider); // 🚀 Usar el provider del repositorio
+        .read(placeRepositoryProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,59 +117,62 @@ class _SearchPlaceTextFieldState extends ConsumerState<SearchPlaceTextField> {
                     if (index != 0)
                       const Divider(height: 1, color: Colors.grey),
                     // Divisor solo para los elementos después del primero
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      // Elimina el padding del ListTile
-                      leading: const Icon(Icons.location_on),
-                      tileColor: Colors.white,
-                      title: CustomText(
-                        text: place.displayName,
-                        fontSize: 15,
-                        textColor: Colors.black,
-                      ),
-                      // In the ListTile trailing IconButton of SearchPlaceTextField
-                      trailing: IconButton(
-                        icon: const Icon(Icons.favorite_border, color: Colors.red),
-                        onPressed: () async {
-                          final placeRepository = ref.read(placeRepositoryProvider);
+                    Material(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        // Elimina el padding del ListTile
+                        leading: const Icon(Icons.location_on),
+                        tileColor: Colors.white,
+                        title: CustomText(
+                          text: place.displayName,
+                          fontSize: 15,
+                          textColor: Colors.black,
+                        ),
+                        // In the ListTile trailing IconButton of SearchPlaceTextField
+                        trailing: IconButton(
+                          icon: const Icon(Icons.favorite_border, color: Colors.red),
+                          onPressed: () async {
+                            final placeRepository = ref.read(placeRepositoryProvider);
 
-                          // Create the PlaceEntity
-                          final placeEntity = PlaceEntity(
-                            place.placeId,
-                            place.osmType!,
-                            place.osmId!,
-                            place.lat,
-                            place.lon,
-                            place.displayName,
-                            place.placeRank,
-                            place.category,
-                            place.type,
-                            place.importance,
-                          );
-
-                          // Save the place and handle the result
-                          final success = await placeRepository.savePlace(placeEntity);
-
-                          if (success) {
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('Lugar guardado: ${place.displayName}')),
+                            // Create the PlaceEntity
+                            final placeEntity = PlaceEntity(
+                              place.placeId,
+                              place.osmType!,
+                              place.osmId!,
+                              place.lat,
+                              place.lon,
+                              place.displayName,
+                              place.placeRank,
+                              place.category,
+                              place.type,
+                              place.importance,
                             );
-                          } else {
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Error al guardar el lugar')),
-                            );
-                          }
+
+                            // Save the place and handle the result
+                            final success = await placeRepository.savePlace(placeEntity);
+
+                            if (success) {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Lugar guardado: ${place.displayName}')),
+                              );
+                            } else {
+                              if (!context.mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Error al guardar el lugar')),
+                              );
+                            }
+                          },
+                        ),
+                        onTap: () {
+                          widget.onPlaceSelected(place);
+                          _controller.text = place.displayName;
+                          setState(() {
+                            _places = [];
+                          });
                         },
                       ),
-                      onTap: () {
-                        widget.onPlaceSelected(place);
-                        _controller.text = place.displayName;
-                        setState(() {
-                          _places = [];
-                        });
-                      },
                     ),
                   ],
                 );
